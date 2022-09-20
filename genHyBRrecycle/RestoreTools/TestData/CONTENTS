@@ -1,0 +1,78 @@
+This directory contains a variety of test data.  Notation
+is as follows:
+
+  x_true : denotes the true image, if it is known.
+  PSF    : image of the point spread function.  If spatially variant blur,
+           then this is a cell array containing several PSFs.
+  b      : blurred and noisy image.
+  b_true : noise free blurred image, if it is known.
+  A      : a matrix that can be a MATLAB full or sparse matrix, or a 
+           psfMatrix object
+  options: a structure, built using IRset.m, that can be used to set certain
+           optional input values.
+  info   : a structure that contains information about the iteration
+           
+
+Following is some specific information about the data files:
+
+  * Text.mat
+    Contains data of some text.  The true image is in Matlab's image
+    processing toolbox.  The PSF was generated using psfGauss.m,
+    and is therefore a separable Gaussian blur.  This means one can
+    use direct methods such as TSVD to restore the image.
+
+  * satellite.mat
+    This is the famous satellite data used as test data by many
+    researchers in image processing.  The data came originally from the
+    Air Force Research Laboratory as part of a simulation study of
+    numerical methods for post processing images taken through atmospheric
+    turbulence. The true image is known.
+
+  * star_cluster.mat 
+    This is data comes from the original Hubble Space Telescope; see
+    http://www.stsci.edu/resources/  for more information and other data.
+    The data is not ill-conditioned, but it is a good example of a 
+    spatially variant blur.  One can use 1, 4, or 25 PSFs to restore
+    the image.  The true image is known.
+
+  * psfGauss.m
+    The function psfGauss.m can be used to create a Gaussian PSF.
+    Use "help psfGauss" for more information.
+
+  * Three examples of spatially invariant Gaussian blurs, using the PSF
+    given in equation (8) in [1], and with the following parameters:
+
+    GaussianBlur440.mat corresponds to the case alpha_1 = alpha_2 = 4 and rho = 0.
+    GaussianBlur420.mat corresponds to the case alpha_1 = 4, alpha_2 = 2 and rho = 0.
+    GaussianBlur422.mat corresponds to the case alpha_1 = 4, alpha_2 = 2 and rho = 2.
+
+  * Three examples of blurring caused by atmospheric turbulences. The PSF
+    is described by equation (9) in [1], and wavefronts were created with three
+    different values of d/r_0. Specifically,
+
+    AtmosphericBlur10 corresponds to d/r_0 = 10.
+    AtmosphericBlur30 corresponds to d/r_0 = 30.
+    AtmosphericBlur50 corresponds to d/r_0 = 50.
+
+  * Spatially variant Gaussian blur, using the PSF given by equation (10) in [1]:
+
+    VariantGaussianBlur1.mat uses alpha_1(s) = 3/4(3|s| + 1) and alpha_2(t) = 3/4(3|t| + 1).
+    VariantGaussianBlur2.mat uses alpha_1(s) = 3/4(-3|s| + 1) and alpha_2(t) = 3/4(-3|t| + 1).
+    VariantGaussianBlur3.mat uses alpha_1(s) = 3 - t/2 and alpha_2(t) = 3 - t/2.
+
+    For each of these we generated 49 PSFs in a 7 x 7 region partitioning 
+    of the image domain. Thus, when this data is loaded into MATLAB, PSF
+    and center will be cell arrays.
+
+  * Spatially variant motion blur:
+    
+    VariantMotionBlur_small.mat contains data for the small motion simulation.
+    VariantMotionBlur_medium.mat contains data for the medium motion simulation.
+    VariantMotionBlur_large.mat contains data for the large motion simulation.
+
+
+References
+
+[1] S. Berisha and J. Nagy, "Iterative Methods for Image Restoration"
+
+
