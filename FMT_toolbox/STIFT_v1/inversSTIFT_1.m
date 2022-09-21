@@ -3,9 +3,10 @@ function obj = inversSTIFT_1(obj)
     fprintf(1,'Applying inversion ');
     tic
     %% loading weighting matrix
-    weighting_Matrix_s = load(obj.weighting_Matrix);
-    weighting_Matrix = weighting_Matrix_s.Jnew;
-    clear weighting_Matrix_s
+%     weighting_Matrix_s = load(obj.weighting_Matrix);
+%     weighting_Matrix = weighting_Matrix_s.Jnew;
+%     clear weighting_Matrix_s
+    load(obj.weighting_Matrix);
     %%%%%
     % reconstruction parameter setting
     if ~isempty(obj.fluorecon)
@@ -190,7 +191,7 @@ function obj = inversSTIFT_1(obj)
             trunc_options.max_mm = 20;  % maximum number of vectors to save at compression
             trunc_options.compress = 'SVD'; 
             trunc_mats = [];
-            maxit2 = 200;
+            maxit2 = iterationTime;
             sigma = 0.1;
             input = HyBRset('InSolv', solver, 'Iter', maxit2, 'nLevel', sigma); 
             % xmin = [0 0];         %Coordinates of left corner

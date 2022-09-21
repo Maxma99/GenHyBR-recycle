@@ -186,7 +186,7 @@ function  obj  = confiSimuSTIFT_1(obj)
     toc
 
     %% Reconstruction configuration
-    obj.recon_coarseness = 2;
+    obj.recon_coarseness = 1.5;
     obj.recon_grd = round((obj.grd -1)./obj.recon_coarseness) + 1;
     obj.mea_mask_option = 1;
     obj.mea_mask_thr = 2e-2;

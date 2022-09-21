@@ -9,6 +9,7 @@ close all;
 exp_FMT = STIFT;
 exp_FMT.machine_mode = 1;% machine mode
 exp_FMT.configurationSTIFT;
+% drawFroPhantom_new(exp_FMT.phantom_parameter.dim,exp_FMT.phantom_parameter.dl);
 
 %% Simulator
 exp_FMT.calcuSystemKSTIFT;
@@ -19,7 +20,7 @@ exp_FMT.emRunSTIFT(exp_FMT.system_K);
 exp_FMT.geneMeaMaskSTIFT;
 exp_FMT.geneSolMaskSTIFT;
 exp_FMT.geneWMSTIFT(exp_FMT.system_K);
-exp_FMT.inversSTIFT;    
+exp_FMT.inversSTIFT;
 
 %% Viewer
 exp_FMT.drawExpSettingSTIFT;

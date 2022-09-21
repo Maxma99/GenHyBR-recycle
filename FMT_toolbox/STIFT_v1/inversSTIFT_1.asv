@@ -3,9 +3,10 @@ function obj = inversSTIFT_1(obj)
     fprintf(1,'Applying inversion ');
     tic
     %% loading weighting matrix
-    weighting_Matrix_s = load(obj.weighting_Matrix);
-    weighting_Matrix = weighting_Matrix_s.Jnew;
-    clear weighting_Matrix_s
+%     weighting_Matrix_s = load(obj.weighting_Matrix);
+%     weighting_Matrix = weighting_Matrix_s.Jnew;
+%     clear weighting_Matrix_s
+    load(obj.weighting_Matrix);
     %%%%%
     % reconstruction parameter setting
     if ~isempty(obj.fluorecon)
@@ -183,18 +184,37 @@ function obj = inversSTIFT_1(obj)
             fprintf(1, 'genHyBR recycle...\n');
             A = weighting_Matrix;
             b = measure_array;
-            NS = 0; PS = [];
+            solver = 'tikhonov';
             % Set trunction options and matrices
             trunc_options.nOuter = 15; % number of outer iterations
             trunc_options.nInner = 25; % maximum storage of solution vector space
             trunc_options.max_mm = 20;  % maximum number of vectors to save at compression
             trunc_options.compress = 'SVD'; 
             trunc_mats = [];
-            maxit2 = 200;
-            R = [];
-            
+            maxit2 = iterationTime;
+            sigma = 0.1;
+            input = HyBRset('InSolv', solver, 'Iter', maxit2, 'nLevel', sigma); 
+            % xmin = [0 0];         %Coordinates of left corner
+            % xmax = [1 1];         %Coordinates of right corner
+            % nvec = [n, n];        %Number of points in grid
+            % 
+            % nu = 1.5; ell = .001;
+            % k = @(r) matern(r,nu,ell);
+            % %Additional parameters governing length scales. Can be used to model
+            % %nonisotropic covariance kernels
+            % theta = [1.0 1.0];      %For now set them as isotropic
+            % 
+            % % Build row/column of the Toeplitz matrix
+            % Qr = createrow(xmin,xmax,nvec,k,theta);
+            % Qfun = @(x)toeplitzproduct(x, Qr, nvec);
+            % Q = funMat(Qfun,Qfun, nvec.^2);
 
-            [PS, NS] = All_HyBRs('genHyBRrecycle1',A,b,Q,[],R,'genHyBRrecycle','tikhonov','gcv',maxit2,PS, NS,[],trunc_options,trunc_mats); 
+            % % Set Q as identity matrix
+            Q = speye(size(A,2));
+            
+            % (b) Set R as identity matrix
+            R = speye(size(A,1));
+            [obj.fluorecon,~,~] = genHyBRrecycle(A,b,[],Q,R,input,trunc_options,trunc_mats); 
 
     end
     fprintf(1,'done\n');
