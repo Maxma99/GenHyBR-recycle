@@ -6,7 +6,7 @@ function obj = inversSTIFT_1(obj)
 %     weighting_Matrix_s = load(obj.weighting_Matrix);
 %     weighting_Matrix = weighting_Matrix_s.Jnew;
 %     clear weighting_Matrix_s
-    weighting_Matrix = load([obj.data_buffer_directory '/weighting_Matrix.mat']);
+    weighting_Matrix = load([obj.data_buffer_directory '/weighting_Matrix.mat'], 'Jnew');
     %%%%%
     % reconstruction parameter setting
     if ~isempty(obj.fluorecon)
