@@ -3,10 +3,9 @@ function obj = inversSTIFT_1(obj)
     fprintf(1,'Applying inversion ');
     tic
     %% loading weighting matrix
-%     weighting_Matrix_s = load(obj.weighting_Matrix);
-%     weighting_Matrix = weighting_Matrix_s.Jnew;
-%     clear weighting_Matrix_s
-    weighting_Matrix = load([obj.data_buffer_directory '/weighting_Matrix.mat'], 'Jnew');
+    weighting_Matrix_s = load([obj.data_buffer_directory '/weighting_Matrix.mat']);
+    weighting_Matrix = weighting_Matrix_s.Jnew;
+    clear weighting_Matrix_s
     %%%%%
     % reconstruction parameter setting
     if ~isempty(obj.fluorecon)
