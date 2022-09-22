@@ -6,7 +6,7 @@ function obj = inversSTIFT_1(obj)
 %     weighting_Matrix_s = load(obj.weighting_Matrix);
 %     weighting_Matrix = weighting_Matrix_s.Jnew;
 %     clear weighting_Matrix_s
-    load(obj.weighting_Matrix);
+    obj.weighting_Matrix = load([obj.data_buffer_directory '/weighting_Matrix.mat']);
     %%%%%
     % reconstruction parameter setting
     if ~isempty(obj.fluorecon)
@@ -34,6 +34,7 @@ function obj = inversSTIFT_1(obj)
         clear tmp_measure_array
     end
     save([obj.data_buffer_directory '/measure_array.mat'],'measure_array','-v7.3');
+    
     obj.measure_array = [obj.data_buffer_directory '/measure_array.mat'];
     obj.geneDisposeMeaMaskSTIFT;
     if ~isempty(obj.dispose_mea_mask)
@@ -180,7 +181,6 @@ function obj = inversSTIFT_1(obj)
             [obj.fluorecon, ~, ~] = lbfgsb(fun, l, u, opts );
             %t=toc(tstart)
         case 15
-            startup_genHyBRrecycle
             fprintf(1, 'genHyBR recycle...\n');
             A = weighting_Matrix;
             b = measure_array;
@@ -191,9 +191,8 @@ function obj = inversSTIFT_1(obj)
             trunc_options.max_mm = 20;  % maximum number of vectors to save at compression
             trunc_options.compress = 'SVD'; 
             trunc_mats = [];
-            maxit2 = iterationTime;
-            sigma = 0.1;
-            input = HyBRset('InSolv', solver, 'Iter', maxit2, 'nLevel', sigma); 
+%             sigma = 0.1;
+            input = HyBRset('InSolv', solver, 'Iter', iterationTime, 'ResTol', [tolerror, tolerror]); 
             % xmin = [0 0];         %Coordinates of left corner
             % xmax = [1 1];         %Coordinates of right corner
             % nvec = [n, n];        %Number of points in grid

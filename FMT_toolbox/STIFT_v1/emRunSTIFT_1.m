@@ -91,7 +91,7 @@ function obj = emRunSTIFT_1(obj,system_K_file)
 %     obj.det_Em(:,5) = [];
 %     obj.det_Em(:,20) = [];
 %     obj.det_Em(:,23) = [];
-            save([obj.data_buffer_directory '\det_Em.mat'],'det_Em');
+            save([obj.data_buffer_directory '/det_Em.mat'],'det_Em');
     end
     toc
 end

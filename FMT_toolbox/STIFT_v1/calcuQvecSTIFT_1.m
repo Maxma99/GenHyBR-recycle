@@ -10,8 +10,8 @@ function obj = calcuQvecSTIFT_1(obj)  % v4.1
         case 'collimated beam'
             % under construction
     end
-    save([obj.data_buffer_directory '\qvec.mat'],'qvec');
-    obj.qvec = [obj.data_buffer_directory '\qvec.mat'];
+    save([obj.data_buffer_directory '/qvec.mat'],'qvec');
+    obj.qvec = [obj.data_buffer_directory '/qvec.mat'];
     fprintf(1,'done\n');
     toc
 end

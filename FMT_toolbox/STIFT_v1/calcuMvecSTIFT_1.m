@@ -13,8 +13,8 @@ function obj = calcuMvecSTIFT_1(obj) % v4.1
                 (obj.detector.d_dim(1)+obj.detector.d_dim(2))/2, obj.optiProp.o_ref);
         case 'ortho'
     end
-    save([obj.data_buffer_directory '\mvec.mat'],'mvec');
-    obj.mvec = [obj.data_buffer_directory '\mvec.mat'];
+    save([obj.data_buffer_directory '/mvec.mat'],'mvec');
+    obj.mvec = [obj.data_buffer_directory '/mvec.mat'];
     fprintf(1,'done\n');
     toc
 end

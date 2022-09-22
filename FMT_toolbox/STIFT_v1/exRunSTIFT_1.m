@@ -55,5 +55,5 @@ function obj = exRunSTIFT_1(obj,system_K_file)
     end
 
     det_Ex = obj.det_Ex;
-    save([obj.data_buffer_directory '\det_Ex.mat'],'det_Ex');
+    save([obj.data_buffer_directory '/det_Ex.mat'],'det_Ex');
 end
