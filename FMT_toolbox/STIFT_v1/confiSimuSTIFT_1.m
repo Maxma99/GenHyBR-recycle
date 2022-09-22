@@ -199,7 +199,7 @@ function  obj  = confiSimuSTIFT_1(obj)
     obj.sol_mask_grd = [];
     obj.weighting_Matrix = [];
     obj.measure_array = [];
-    obj.reconSetting.Method = 10;
+    obj.reconSetting.Method = 15;
     % reconstruction method options: 
     %   1,2: ART w/o & w/ regularization
     %   3,4: MATLAB simple backslash w/o & w/ regularization
@@ -209,6 +209,7 @@ function  obj  = confiSimuSTIFT_1(obj)
     %   11: l1 joint l2 
     %   12: l1 joint TV
     %   13, 14: non negative least square w/o & w/ regularization
+    %   15: HyBR recycle & genHyBR recycle 
     obj.reconSetting.iterTime = 200;
     obj.reconSetting.lambdaFactor = 1e-4;
     obj.reconSetting.tolerror = 1e-8;
