@@ -9,7 +9,6 @@ close all;
 exp_dFMT = STIFT;
 exp_dFMT.machine_mode = 1;% machine mode
 exp_dFMT.configurationSTIFT;
-% drawFroPhantom_new(exp_FMT.phantom_parameter.dim,exp_FMT.phantom_parameter.dl);
 
 %% Simulator
 exp_dFMT.calcuSystemKSTIFT;
@@ -28,6 +27,6 @@ exp_dFMT.inversSTIFT;
 exp_dFMT.drawExpSettingSTIFT;
 exp_dFMT.drawExDetSTIFT;
 exp_dFMT.drawEmDetSTIFT;
-exp_dFMT.drawFluoSettingSTIFT;                                                                                                                                                                                                                                       
+exp_dFMT.drawFluoSettingSTIFT;
 exp_dFMT.drawReconSTIFT;
 
