@@ -158,9 +158,9 @@ function obj = inversSTIFT_1(obj)
             b = measure_array;
             solver = 'tikhonov';
             % Set trunction options and matrices
-            trunc_options.nOuter = 15; % number of outer iterations
-            trunc_options.nInner = 25; % maximum storage of solution vector space
-            trunc_options.max_mm = 20;  % maximum number of vectors to save at compression
+            trunc_options.nOuter = 10; % number of outer iterations
+            trunc_options.nInner = 20; % maximum storage of solution vector space
+            trunc_options.max_mm = 15;  % maximum number of vectors to save at compression
             trunc_options.compress = 'SVD'; 
             trunc_mats = [];
 %             sigma = 0.1;
@@ -185,8 +185,8 @@ function obj = inversSTIFT_1(obj)
             
             % (b) Set R as identity matrix
             R = speye(size(A,1));
-            [obj.fluorecon,~,~] = genHyBRrecycle(A,b,[],Q,R,input,trunc_options,trunc_mats); 
-
+            [obj.fluorecon,output_fluorecon,~] = genHyBRrecycle(A,b,[],Q,R,input,trunc_options,trunc_mats); 
+            disp(['genhybr iterations:', num2str(output_fluorecon.iterations)]);
     end
     fprintf(1,'done\n');
     toc

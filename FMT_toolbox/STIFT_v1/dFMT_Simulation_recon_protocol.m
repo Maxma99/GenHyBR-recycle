@@ -19,7 +19,7 @@ exp_dFMT.emRunSTIFT(exp_dFMT.system_K);
 exp_dFMT.geneMeaMaskSTIFT;
 exp_dFMT.geneSolMaskSTIFT;
 %% Weighting Matrix
-exp_dFMT.geneWMSTIFT(exp_dFMT,exp_dFMT.system_K);
+exp_dFMT.geneWMSTIFT(exp_dFMT.system_K);
 
 save([exp_dFMT.data_buffer_directory '/exp_dFMT.mat']);
 

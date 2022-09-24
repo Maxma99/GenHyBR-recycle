@@ -210,7 +210,7 @@ function  obj  = confiSimuSTIFT_1(obj)
     %   12: l1 joint TV
     %   13, 14: non negative least square w/o & w/ regularization
     %   15: HyBR recycle & genHyBR recycle 
-    obj.reconSetting.iterTime = 200;
+    obj.reconSetting.iterTime = 50;
     obj.reconSetting.lambdaFactor = 1e-4;
     obj.reconSetting.tolerror = 1e-8;
     obj.reconSetting.recon_use_real_ex = 0;
