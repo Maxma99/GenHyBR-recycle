@@ -1,12 +1,13 @@
 % v1
 function obj = inversSTIFT_1(obj)    
     fprintf(1,'Applying inversion ');
-
-    %% loading weighting matrix
     weighting_Matrix_s = load([obj.data_buffer_directory '/weighting_Matrix.mat']);
-    weighting_Matrix = weighting_Matrix_s.weighting_Matrix;
+    weighting_Matrix = weighting_Matrix_s.Jnew;
     clear weighting_Matrix_s
-    %%%%%
+    measure_array_s = load([obj.data_buffer_directory '/measure_array.mat']);
+    measure_array = measure_array_s.measure_array;
+    clear measure_array_s
+    %% Reconstruction Setting
     % reconstruction parameter setting
     if ~isempty(obj.fluorecon)
         clear obj.fluorecon;
@@ -17,37 +18,8 @@ function obj = inversSTIFT_1(obj)
     gamma = 0.3; %need to be specified beforehand for case 11!
     lambda_TV=1e-6;
     tolerror = obj.reconSetting.tolerror;
-    %%%%%%%%%%%%%%%%%%% phamton
-
-    [pixel_n,laser_n] = size(obj.det_Em);
-    measure_array = zeros(pixel_n*laser_n,1);
     nsol = size(weighting_Matrix,2);
-    for i= 1:laser_n
-        measure_array(((i-1)*pixel_n+1):(pixel_n*i))=obj.det_Em(:,i)./obj.det_Ex(:,i);
-        %measure_array(((i-1)*pixel_n+1):(pixel_n*i))=obj.det_Em(:,i)./obj.det_Ex_recon(:,i);
-    end
-    if ~isempty(obj.mea_mask)
-        tmp_measure_array = measure_array(obj.mea_mask);
-        clear measure_array
-        measure_array = tmp_measure_array;
-        clear tmp_measure_array
-    end
-    save([obj.data_buffer_directory '/measure_array.mat'],'measure_array','-v7.3');
-    
-    obj.measure_array = [obj.data_buffer_directory '/measure_array.mat'];
-    obj.geneDisposeMeaMaskSTIFT;
-    if ~isempty(obj.dispose_mea_mask)
-        tmp_measure_array = measure_array(obj.dispose_mea_mask);
-        tmp_weighting_Matrix = weighting_Matrix(obj.dispose_mea_mask,:);
-        clear measure_array
-        clear weighting_Matrix
-        measure_array = tmp_measure_array;
-        weighting_Matrix = tmp_weighting_Matrix;
-        clear tmp_measure_array
-        clear tmp_weighting_Matrix
-    end
-    save([obj.data_buffer_directory '/measure_array.mat'],'measure_array','-v7.3');
-    save([obj.data_buffer_directory '/weighting_Matrix.mat'],'weighting_Matrix','-v7.3');
+
     for i = 1:size(weighting_Matrix,2)
         if(norm(weighting_Matrix(:,i))~=0)
             weighting_Matrix(:,i) = weighting_Matrix(:,i)/norm(weighting_Matrix(:,i));
