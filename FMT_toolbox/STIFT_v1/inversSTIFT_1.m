@@ -2,7 +2,7 @@
 function obj = inversSTIFT_1(obj)    
     fprintf(1,'Applying inversion ');
     weighting_Matrix_s = load([obj.data_buffer_directory '/weighting_Matrix.mat']);
-    weighting_Matrix = weighting_Matrix_s.Jnew;
+    weighting_Matrix = weighting_Matrix_s.weighting_Matrix;
     clear weighting_Matrix_s
     measure_array_s = load([obj.data_buffer_directory '/measure_array.mat']);
     measure_array = measure_array_s.measure_array;
