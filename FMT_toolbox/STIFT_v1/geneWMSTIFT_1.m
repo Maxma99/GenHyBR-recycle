@@ -41,8 +41,9 @@ function obj = geneWMSTIFT_1(obj,system_K_file)
     for i = 1: sum(obj.mea_mask)
     	Jnew(i,:) = Jnew(i,:)/xdata(i);
     end
-    
-    save([obj.data_buffer_directory '/weighting_Matrix.mat'],'Jnew','-v7.3');
+    weighting_Matrix = Jnew;
+    save([obj.data_buffer_directory '/weighting_Matrix.mat'],'weighting_Matrix','-v7.3');
+
     %save([obj.data_buffer_directory '\weighting_Matrix.mat'],'Jnew');
     obj.weighting_Matrix = [obj.data_buffer_directory '/weighting_Matrix.mat'];    
 

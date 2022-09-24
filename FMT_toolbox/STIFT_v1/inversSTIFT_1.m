@@ -1,10 +1,10 @@
 % v1
 function obj = inversSTIFT_1(obj)    
     fprintf(1,'Applying inversion ');
-    tic
+
     %% loading weighting matrix
     weighting_Matrix_s = load([obj.data_buffer_directory '/weighting_Matrix.mat']);
-    weighting_Matrix = weighting_Matrix_s.Jnew;
+    weighting_Matrix = weighting_Matrix_s.weighting_Matrix;
     clear weighting_Matrix_s
     %%%%%
     % reconstruction parameter setting
@@ -53,6 +53,7 @@ function obj = inversSTIFT_1(obj)
             weighting_Matrix(:,i) = weighting_Matrix(:,i)/norm(weighting_Matrix(:,i));
         end
     end
+    tic
     switch obj.reconSetting.Method
         case 1 % ART without regularization
             fprintf(1,'using ART without regularization...\n');

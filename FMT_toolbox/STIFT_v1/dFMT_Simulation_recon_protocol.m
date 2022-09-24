@@ -18,9 +18,13 @@ exp_dFMT.emRunSTIFT(exp_dFMT.system_K);
 %% System Builder
 exp_dFMT.geneMeaMaskSTIFT;
 exp_dFMT.geneSolMaskSTIFT;
+%% Weighting Matrix
 exp_dFMT.geneWMSTIFT(exp_dFMT.system_K);
 
+save([exp_dFMT.data_buffer_directory '/exp_dFMT.mat']);
+
 %% Solver
+load('test/exp_dFMT.mat');
 exp_dFMT.inversSTIFT;
 
 %% Viewer
