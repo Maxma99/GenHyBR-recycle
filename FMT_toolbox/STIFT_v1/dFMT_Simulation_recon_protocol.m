@@ -26,8 +26,9 @@ save([exp_dFMT.data_buffer_directory '/exp_dFMT.mat']);
 %% Solver
 
 load('test/exp_dFMT.mat');
-close all;
 %%
+
+close all;
 exp_dFMT.inversSTIFT;
 exp_dFMT.drawExpSettingSTIFT;
 exp_dFMT.drawExDetSTIFT;
