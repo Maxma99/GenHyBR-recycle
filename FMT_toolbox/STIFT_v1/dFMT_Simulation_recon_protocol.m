@@ -9,6 +9,7 @@ close all;
 exp_dFMT = STIFT;
 exp_dFMT.machine_mode = 1;% machine mode
 exp_dFMT.configurationSTIFT;
+
 %% Simulator
 exp_dFMT.calcuSystemKSTIFT;
 exp_dFMT.exRunSTIFT(exp_dFMT.system_K);
@@ -30,6 +31,6 @@ exp_dFMT.inversSTIFT;
 exp_dFMT.drawExpSettingSTIFT;
 exp_dFMT.drawExDetSTIFT;
 exp_dFMT.drawEmDetSTIFT;
-exp_dFMT.drawFluoSettingSTIFT; 
+exp_dFMT.drawFluoSettingSTIFT;
 exp_dFMT.drawReconSTIFT;
 
