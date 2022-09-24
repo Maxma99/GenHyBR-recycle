@@ -158,9 +158,9 @@ function obj = inversSTIFT_1(obj)
             b = measure_array;
             solver = 'tikhonov';
             % Set trunction options and matrices
-            trunc_options.nOuter = 10; % number of outer iterations
-            trunc_options.nInner = 20; % maximum storage of solution vector space
-            trunc_options.max_mm = 15;  % maximum number of vectors to save at compression
+            trunc_options.nOuter = 5; % number of outer iterations
+            trunc_options.nInner = 15; % maximum storage of solution vector space
+            trunc_options.max_mm = 10;  % maximum number of vectors to save at compression
             trunc_options.compress = 'SVD'; 
             trunc_mats = [];
 %             sigma = 0.1;
