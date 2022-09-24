@@ -1,4 +1,4 @@
-% v1
+% v1 generate weighting matrix and measurement array
 function obj = geneWMSTIFT_1(obj,system_K_file)
 %%
     tic
@@ -47,6 +47,43 @@ function obj = geneWMSTIFT_1(obj,system_K_file)
     %save([obj.data_buffer_directory '\weighting_Matrix.mat'],'Jnew');
     obj.weighting_Matrix = [obj.data_buffer_directory '/weighting_Matrix.mat'];    
 
+
+        %% loading weighting matrix Jnew
+    weighting_Matrix_s = load([obj.data_buffer_directory '/weighting_Matrix.mat']);
+    weighting_Matrix = weighting_Matrix_s.weighting_Matrix;
+    clear weighting_Matrix_s
+   
+    %% phantom measurement array
+
+    [pixel_n,laser_n] = size(obj.det_Em);
+    measure_array = zeros(pixel_n*laser_n,1);
+    for i= 1:laser_n
+        measure_array(((i-1)*pixel_n+1):(pixel_n*i))=obj.det_Em(:,i)./obj.det_Ex(:,i);
+        %measure_array(((i-1)*pixel_n+1):(pixel_n*i))=obj.det_Em(:,i)./obj.det_Ex_recon(:,i);
+    end
+    if ~isempty(obj.mea_mask)
+        tmp_measure_array = measure_array(obj.mea_mask);
+        clear measure_array
+        measure_array = tmp_measure_array;
+        clear tmp_measure_array
+    end
+    save([obj.data_buffer_directory '/measure_array.mat'],'measure_array','-v7.3');
+    
+    obj.measure_array = [obj.data_buffer_directory '/measure_array.mat'];
+    obj.geneDisposeMeaMaskSTIFT;
+    if ~isempty(obj.dispose_mea_mask)
+        tmp_measure_array = measure_array(obj.dispose_mea_mask);
+        tmp_weighting_Matrix = weighting_Matrix(obj.dispose_mea_mask,:);
+        clear measure_array
+        clear weighting_Matrix
+        measure_array = tmp_measure_array;
+        weighting_Matrix = tmp_weighting_Matrix;
+        clear tmp_measure_array
+        clear tmp_weighting_Matrix
+    end
+    save([obj.data_buffer_directory '/measure_array.mat'],'measure_array','-v7.3');
+    save([obj.data_buffer_directory '/weighting_Matrix.mat'],'weighting_Matrix','-v7.3');
+   
     fprintf(1,'done\n');
     toc    
 end
